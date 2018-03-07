@@ -13,6 +13,7 @@ BindingException：异常类
 
     protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
 
-该类主要用来注册mapper  
+该类主要用来注册mapper,主要方法如下：
 
-    
+![image](https://github.com/qiqi2014/learning/blob/master/picture/diagram.png?raw=true)
+
