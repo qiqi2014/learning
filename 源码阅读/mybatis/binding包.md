@@ -15,5 +15,5 @@ BindingException：异常类
 
 该类主要用来注册mapper,主要方法如下：
 
-![image](https://github.com/qiqi2014/learning/blob/master/picture/diagram.png?raw=true)
+![image](https://github.com/qiqi2014/learning/blob/master/picture/MapperRegistry.png?raw=true)
 
