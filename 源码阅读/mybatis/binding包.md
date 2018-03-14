@@ -17,3 +17,30 @@ BindingException：异常类
 
 ![image](https://github.com/qiqi2014/learning/blob/master/picture/MapperRegistry.png?raw=true)
 
+```
+  public <T> void addMapper(Class<T> type) {
+  //因为Java的动态代理只能实现接口，因而在注册mapper时也只能注册接口
+    if (type.isInterface()) {
+    //如果已经注册过了，则抛出异常，而不是覆盖
+      if (hasMapper(type)) {
+        throw new BindingException("Type " + type + " is already known to the MapperRegistry.");
+      }
+      boolean loadCompleted = false;
+      try {
+      // 因为mapper只是接口，没有实现，实现是java的动态代理，这里存储的是mapper代理工厂，mapper代理工厂产生代理
+        knownMappers.put(type, new MapperProxyFactory<T>(type));
+        // It's important that the type is added before the parser is run
+        // otherwise the binding may automatically be attempted by the
+        // mapper parser. If the type is already known, it won't try.
+        MapperAnnotationBuilder parser = new MapperAnnotationBuilder(config, type);
+        parser.parse();
+        loadCompleted = true;
+      } finally {
+        if (!loadCompleted) {
+          knownMappers.remove(type);
+        }
+      }
+    }
+  }
+
+```
